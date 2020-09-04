@@ -35,8 +35,27 @@ module.exports = (db) => {
         })
     }
 
-    let register=(request,response)=> {
+    let registerPage=(request,response)=> {
         response.render("RegisteringPage")
+    }
+    let registerDone=(request,response)=> {
+        let params = [
+            request.body.username,
+        ]
+        db.poolRoutes.registerCheckFX(params, (err,results)=> {
+            console.log(results.rows.length)
+            // If the username already exists render the same login page
+            if(results.rows.length !== 0) {
+                response.redirect('/register')
+            } else {
+                params.push(sha256(`${request.body.password}`));
+                // If the username does not exists render the email input page.
+                db.poolRoutes.registerFX(params, (err,results2)=> {
+                    console.log(results2)
+                    response.send("Successfully registered")
+                })
+            }
+        })
     }
 // <----------------------------------------------------------------------------------------------------------> //
 // <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
@@ -44,6 +63,8 @@ module.exports = (db) => {
     return {
         loginPage,
         loginCheck,
-        register
+
+        registerPage,
+        registerDone
     }
 }
