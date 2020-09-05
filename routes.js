@@ -8,4 +8,6 @@ module.exports = (app, allModels) => {
     app.get('/register', controllerCallBacks.registerPage);
     app.post('/register', controllerCallBacks.registerDone);
 
+    app.get('/emailinput', controllerCallBacks.emailLinkPage)
+    // app.post('/linking', controllerCallBacks.linkEmail)
 }

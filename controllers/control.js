@@ -25,6 +25,7 @@ module.exports = (db) => {
         sha256(`${request.body.password}`)
         ]
         db.poolRoutes.loginCheckFX(params, (err,results)=> {
+            // If username and password does not match with the database
             if(results.rows.length == 0) {
                 response.redirect("/");
             } else {
@@ -34,7 +35,6 @@ module.exports = (db) => {
             }
         })
     }
-
     let registerPage=(request,response)=> {
         response.render("RegisteringPage")
     }
@@ -51,20 +51,39 @@ module.exports = (db) => {
                 params.push(sha256(`${request.body.password}`));
                 // If the username does not exists render the email input page.
                 db.poolRoutes.registerFX(params, (err,results2)=> {
-                    console.log(results2)
-                    response.send("Successfully registered")
+                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`))
+                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`))
+                    response.redirect('/emailinput')
                 })
             }
         })
     }
 // <----------------------------------------------------------------------------------------------------------> //
-// <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
+// <-********************************************************************************************************-> //
 // <----------------------------------------------------------------------------------------------------------> //
+
+// <----------------------------------------------------------------------------------------------------------> //
+// <------------------------------------------Email Input/ GMAIL API------------------------------------------> //
+// <----------------------------------------------------------------------------------------------------------> //
+
+    let emailLinkPage=(request,response)=> {
+        response.render('linkPage')
+    }
+    // let linking=(request,response)=> {
+    //     let params = [
+    //     request.body.actualEmail
+    //     ]
+
+    // }
     return {
         loginPage,
         loginCheck,
 
         registerPage,
-        registerDone
+        registerDone,
+
+        emailLinkPage
+        // linking
+
     }
 }
