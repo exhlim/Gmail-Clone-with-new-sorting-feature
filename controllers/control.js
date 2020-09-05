@@ -72,7 +72,8 @@ module.exports = (db) => {
         response.send(`<!DOCTYPE html>
                         <html>
                           <head>
-                            <title>Gmail API Quickstart</title>
+                            <title>Gmail</title>
+                            <link rel="stylesheet" type="text/css" href="/linkPage.css"/>
                             <meta charset="utf-8" />
                           </head>
                           <body>

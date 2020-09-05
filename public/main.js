@@ -34,7 +34,7 @@
     if (isSignedIn) {
       authorizeButton.style.display = 'none';
       signoutButton.style.display = 'block';
-      listLabels()
+      storeData()
       // Store all my data i need inside my query
     } else {
       authorizeButton.style.display = 'block';
@@ -56,10 +56,13 @@
     pre.appendChild(textContent);
   }
 
-  function listLabels() {
+// <----------------------------------------------------------------------------------------------------------> //
+// <---------------------------------------------Storing of Emails--------------------------------------------> //
+// <----------------------------------------------------------------------------------------------------------> //
+  function storeData() {
     gapi.client.gmail.users.messages.list({
         'userId': 'me',
-        'maxResults': 2
+        'maxResults': 1400
     })
     .then(function(response) {
          var messagesIdArray = [];
@@ -68,25 +71,81 @@
             })
             return messagesIdArray
     }).then(function(response2) {
-        console.log(response2)
         gapi.client.gmail.users.messages.get({
         'userId': 'me',
-        'id': response2[0]
+        'id': response2[4]
         }).then(function(response3) {
-            appendPre(response3.result.snippet)
+            console.log(response3)
+            let date = getDate("1599314426000")
+            console.log(response3.result.payload.parts[1].body)
+            let decode = response3.result.payload.parts[1].body.data
+            // EMAIL response3.result.payload.headers.forEach(object=> {
+            //         if(object.name == 'From') {
+            //             console.log(object.value)
+            //         }
+            //     })
+            // CHECK BOX
+            // STAR
+
+            // TEXT response3.result.payload.headers.forEach(object=> {
+                    // if(object.name == 'Subject') {
+                    //     console.log(Object.values(object))
+                    // }
+            //     if(object.name == 'From') {
+            //         console.log(object.value)
+            //     }
+            // })
+
+            // SUBJECT
+
+            /// SNIPPET response3.result.snippet
+            createLinkButton();
         })
+    }).catch(function(err) {
+        response.send(err);
     })
   }
-    function printEmails(idArray) {
-        let string = idArray[1].toString();
-    gapi.client.gmail.users.messages.list({
-        'userId': 'me',
-        'id': string
-    })
-    .then(function(response) {
-        console.log(response)
-    });
+  function createLinkButton() {
+    let pre = document.getElementById('content')
+    let form = document.createElement('form')
+    let button = document.createElement('button')
+    button.innerText = "Continue";
+    form.appendChild(button)
+    pre.appendChild(form)
+    document.querySelector('form').action = "/mail"
   }
+
+  function getDate(ms) {
+    ms = parseInt(ms)
+    let monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let now = Date.now()
+    if((now - ms)/3600000 > 24) {
+        ms = new Date(ms)
+        let day = ms.getDate();
+        let month = ms.getMonth();
+        return monthName[month] + " " + day;
+    } else {
+        let date = new Date(ms);
+        let day = date.getHours()
+        let minutes = date.getMinutes()
+        if(minutes - 9 <= 0){
+            return day > 12 ? `${day - 12}:0${minutes} PM` : `${day}:0${minutes} AM`
+        }
+        return day > 12 ? `${day - 12}:${minutes} PM` : `${day}:${minutes} AM`
+    }
+  }
+    decodeBase64 = function(s) {
+        var e={},i,b=0,c,x,l=0,a,r='',w=String.fromCharCode,L=s.length;
+        var A="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        for(i=0;i<64;i++){e[A.charAt(i)]=i;}
+        for(x=0;x<L;x++){
+            c=e[s.charAt(x)];b=(b<<6)+c;l+=6;
+            while(l>=8){((a=(b>>>(l-=8))&0xff)||(x<(L-2)))&&(r+=w(a));}
+        }
+        return r;
+    };
+
   // function listLabels() {
   //   gapi.client.gmail.users.labels.list({
   //     'userId': 'me'

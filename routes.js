@@ -10,5 +10,5 @@ module.exports = (app, allModels) => {
 
     app.get('/emailinput', controllerCallBacks.emailLinkPage)
 
-    app.get('/home', controllerCallBacks.homePage)
+    app.get('/mail', controllerCallBacks.homePage)
 }
