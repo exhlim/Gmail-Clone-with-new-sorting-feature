@@ -21,7 +21,9 @@ module.exports = (poolParameter) => {
             callback(err,result)
         })
     }
-
+    let homeFX=(params, callback)=> {
+        callback(null, null)
+    }
     // let insertNewSongFX =(params, callback)=>{
     //     let insertQuery = 'INSERT INTO songs (title,album,preview_link,artwork,artist_id) VALUES ($1,$2,$3,$4,$5)'
     //     poolParameter.query(insertQuery,params, (err, result)=> {
@@ -32,6 +34,7 @@ module.exports = (poolParameter) => {
     return {
         loginCheckFX,
         registerCheckFX,
-        registerFX
+        registerFX,
+        homeFX
     }
 }

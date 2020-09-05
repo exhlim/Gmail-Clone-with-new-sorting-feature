@@ -13,6 +13,7 @@ module.exports = (db) => {
             let reference = request.cookies['reference']
             let cookieValue = request.cookies['loggedIn']
             if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+                // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
                 response.send("You are still logged in");
             } else {
                 response.send("You are tempering");
@@ -31,7 +32,8 @@ module.exports = (db) => {
             } else {
                 response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`))
                 response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`))
-                response.send("Success")
+                // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
+                response.redirect('/emailinput')
             }
         })
     }
@@ -67,14 +69,38 @@ module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 
     let emailLinkPage=(request,response)=> {
-        response.render('linkPage')
+        response.send(`<!DOCTYPE html>
+                        <html>
+                          <head>
+                            <title>Gmail API Quickstart</title>
+                            <meta charset="utf-8" />
+                          </head>
+                          <body>
+                            <p>Please sign in to the email that you want to link: </p>
+                            <button id="authorize_button" style="display: none;">Authorize</button>
+                            <button id="signout_button" style="display: none;">Sign Out</button>
+                            <pre id="content" style="white-space: pre-wrap;"></pre>
+                            <script type="text/javascript" src="main.js"></script>
+                            <script async defer src="https://apis.google.com/js/api.js"
+                              onload="this.onload=function(){};handleClientLoad()"
+                              onreadystatechange="if (this.readyState === 'complete') this.onload()">
+                            </script>
+                          </body>
+                        </html>`)
     }
-    // let linking=(request,response)=> {
-    //     let params = [
-    //     request.body.actualEmail
-    //     ]
+// <----------------------------------------------------------------------------------------------------------> //
+// <-********************************************************************************************************-> //
+// <----------------------------------------------------------------------------------------------------------> //
 
-    // }
+// <----------------------------------------------------------------------------------------------------------> //
+// <------------------------------------------------Home Page ------------------------------------------------> //
+// <----------------------------------------------------------------------------------------------------------> //
+    let homePage=(request,response)=> {
+        response.render('HomePage')
+    }
+// <----------------------------------------------------------------------------------------------------------> //
+// <-********************************************************************************************************-> //
+// <----------------------------------------------------------------------------------------------------------> //
     return {
         loginPage,
         loginCheck,
@@ -82,7 +108,9 @@ module.exports = (db) => {
         registerPage,
         registerDone,
 
-        emailLinkPage
+        emailLinkPage,
+
+        homePage
         // linking
 
     }

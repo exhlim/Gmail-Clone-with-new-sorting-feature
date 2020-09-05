@@ -9,5 +9,6 @@ module.exports = (app, allModels) => {
     app.post('/register', controllerCallBacks.registerDone);
 
     app.get('/emailinput', controllerCallBacks.emailLinkPage)
-    // app.post('/linking', controllerCallBacks.linkEmail)
+
+    app.get('/home', controllerCallBacks.homePage)
 }
