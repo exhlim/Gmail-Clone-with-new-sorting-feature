@@ -1,6 +1,6 @@
 const React = require('react')
 import { createMuiTheme } from '@material-ui/core/styles';
-import Header from './Header'
+import Mail from './Mail'
 export default class MailPage extends React.Component {
     render () {
         return (
@@ -9,9 +9,10 @@ export default class MailPage extends React.Component {
                     <link rel="stylesheet" type="text/css" href="/home.css"/>
                     <link rel="icon" href="./gmail.svg"/>
                     <title>Gmail</title>
+                    <script src="mail.js" defer></script>
                 </head>
                 <body>
-                    <Header />
+                    <Mail />
                 </body>
             </html>
             )

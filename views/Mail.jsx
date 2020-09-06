@@ -1,21 +1,25 @@
-var React = require("react");
-
+const React = require('react')
+import Bars from './Bars'
+import SearchBar from './SearchBar'
+import Sidebar from './SideBar'
+import MailMainComponent from './MailMainComponent'
 export default class Mail extends React.Component {
-  render() {
-    return (
-        <div className="mailparent">
-            <div className="mailheader"></div>
-
-            <div className="mailparent2">
-                <div className="mailcomponent">
-                </div>
-                <div id="footer">
-                    <div>Manage your storage</div>
-                    <div>Terms . Privacy - Program Policies</div>
-                    <div>Last account activity: 0 minutes ago</div>
-                </div>
-            </div>
-        </div>
-    )
-  }
-};
+    render () {
+        return (
+            <html>
+                <head>
+                </head>
+                <body>
+                    <div className="header">
+                        <Bars />
+                        <SearchBar />
+                    </div>
+                    <div className="main">
+                        <Sidebar />
+                        <MailMainComponent />
+                    </div>
+                </body>
+            </html>
+            )
+    }
+}
