@@ -170,6 +170,7 @@ body {
 .mail-parent2 {
 	max-height: 93.6%;
 	overflow-y: scroll;
+		margin: 0;
 }
 .mail-header {
 	height: 50px;
@@ -177,6 +178,7 @@ body {
 .mail-component {
 	border: 1px solid black;
 	background-color: white;
+
 }
 
 .tab-icons {
@@ -194,7 +196,7 @@ body {
 	list-style-type: none;
 	margin: 5px;
 	padding: 5px;
-	border-bottom: 1px solid lightgrey
+	border-bottom: 1px solid grey
 }
 
 .tab {
@@ -213,6 +215,50 @@ body {
 }
 
 
+.email {
+	font-size: 15px;
+	color: black;
+	text-decoration: none;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid lightgrey;
+	border-bottom: 1px solid lightgrey;
+	padding: 1px;
+	cursor: pointer;
+	justify-content: flex-start;
+	flex-grow: 0;
+
+}
+.email:hover {
+	background-color: lightgrey;
+}
+.email-icons {
+	height: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.sender-line {;
+	width: 220px;
+}
+.subject-line {
+	max-width: 600px;
+	min-width: 0px;
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.subject-bold {
+	font-weight: bolder;
+	padding-right: 10px;
+}
+.date-line {
+	min-width: 80px;
+	font-weight: bolder;
+	/*flex: 0.2;*/
+	padding-right: 5px;
+	text-align: right;
+}
 
 #footer {
 	display: flex;
