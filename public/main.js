@@ -79,6 +79,7 @@
             let date = getDate("1599314426000")
             console.log(response3.result.payload.parts[1].body)
             let decode = response3.result.payload.parts[1].body.data
+
             // EMAIL response3.result.payload.headers.forEach(object=> {
             //         if(object.name == 'From') {
             //             console.log(object.value)

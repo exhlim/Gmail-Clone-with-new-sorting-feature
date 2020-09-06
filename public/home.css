@@ -1,3 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	font-family: "PT Sans";
+}
 body {
-	background-color: pink;
+	background-color: #abe2f7;
+}
+/*-------------------------------HEADER CONTENT-------------------------------*/
+.header {
+	display: flex;
+	position: fixed;
+	top: 0;
+	align-items: center;
+	position: sticky;
+	height: 70px;
+	padding-left: 150px;
+	border-bottom: 1px solid black;
+}
+
+
+.leftcolumn {
+	flex: 0.15;
+	display: flex;
+	align-items: center;
+}
+.dropDown {
+	cursor: pointer;
+	margin: 20px;
+	height: 45px;
+	width: 45px;
+	border-radius: 50px;
+}
+.dropDown:hover {
+	background-color: lightgrey;
+}
+.lines {
+	position: relative;
+	top: 32%;
+	width: 50%;
+	height: 2px;
+	background-color: grey;
+	margin: 3px auto;
+	border-radius: 4px;
+}
+.logo {
+	cursor: pointer;
+	height: 35px;
+}
+.brand {
+	text-decoration: none;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 15px;
+}
+.searchbar {
+	display: flex;
+	border-radius: 9px;
+	border: 1px solid black;
+	align-items: center;
+	flex: 0.5;
+	height: 55px;
+}
+.searchIcon {
+		height: 30px;
+		 margin: 8px 8px 0 8px;
+ }
+.outsideSearch {
+		border-radius: 250px;
+		margin-left: 15px;
+		margin-right: 5px;
+		width: 45px;
+		height: 45px;
+}
+.outsideSearch:hover {
+	background-color: lightgrey;
+}
+.searchbox {
+	border: none;
+	background-color: transparent;
+	border-radius: 9px;
+	height: 90%;
+	width: 100%;
+}
+.searchbox:focus {
+	background-color: white;
+	width: 91%;
+}
+/*-------------------------------HEADER CONTENT--------------------------------*/
+
+/*-------------------------------SIDEBAR CONTENT-------------------------------*/
+.main {
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+
+
+.sidebar {
+	flex: 0.13;
+	margin-left: 170px;
+	height: 92vh;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	padding: 10px;
+}
+.compose {
+	display: flex;
+	align-items: center;
+	border-radius: 25px;
+	height: 40px;
+	background-color: white;
+	width: 90%;
+	outline: none;
+}
+.plus {
+	flex: 0.6;
+	height: 60%;
+}
+#compose {
+	font-size: 16px;
 }

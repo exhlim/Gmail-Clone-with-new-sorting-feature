@@ -4,8 +4,10 @@ export default class ReisteringPage extends React.Component {
     render () {
         return (
             <html>
-                <header>
-                </header>
+                <head>
+                <title>Gmail</title>
+                <link rel="icon" href="./gmail.svg"/>
+                </head>
                 <body>
                     <form method="POST" action="/register">
                         New Username: <input type="text" name="username" placeholder="Username"/>
