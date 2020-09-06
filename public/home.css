@@ -16,13 +16,13 @@ body {
 	align-items: center;
 	position: sticky;
 	height: 70px;
-	padding-left: 150px;
+	padding-left: 130px;
 	border-bottom: 1px solid black;
 }
 
 
 .leftcolumn {
-	flex: 0.15;
+	flex: 0.17;
 	display: flex;
 	align-items: center;
 }
@@ -101,21 +101,26 @@ body {
 
 
 .sidebar {
-	flex: 0.13;
-	margin-left: 170px;
+	flex: 0.15;
+	margin-left: 150px;
+	align-content: center;
 	height: 92vh;
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	padding: 10px;
 }
-.compose {
+
+.composeComponent {
 	display: flex;
+	cursor: pointer;
+	margin-top: 10px;
 	align-items: center;
 	border-radius: 25px;
 	height: 40px;
 	background-color: white;
 	width: 90%;
 	outline: none;
+	margin-bottom: 20px;
 }
 .plus {
 	flex: 0.6;
@@ -123,4 +128,29 @@ body {
 }
 #compose {
 	font-size: 16px;
+}
+
+
+.sidebaroptions {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 5px;
+	padding: 7px;
+}
+.sidebaricons {
+	width: 37px;
+	margin-right: 5px;
+}
+.sidebartext {
+	font-size: 18px;
+}
+.unread {
+	padding-right: 10px;
+	font-size: 16px;
+	text-align: right;
+	width: 100%;
+}
+.sidebaroptions:hover {
+	background-color: lightgrey;
 }
