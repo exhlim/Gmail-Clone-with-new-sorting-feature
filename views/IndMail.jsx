@@ -2,8 +2,8 @@ const React = require('react')
 import Bars from './Bars'
 import SearchBar from './SearchBar'
 import Sidebar from './SideBar'
-import MailMainComponent from './MailMainComponent'
-export default class Mail extends React.Component {
+import IndMainComponent from './IndMainComponent'
+export default class IndMail extends React.Component {
     render () {
         return (
             <html>
@@ -16,7 +16,7 @@ export default class Mail extends React.Component {
                     </div>
                     <div className="main">
                         <Sidebar />
-                        <MailMainComponent object2={this.props.object}/>
+                        <IndMainComponent object2={this.props.object}/>
                     </div>
                 </body>
             </html>

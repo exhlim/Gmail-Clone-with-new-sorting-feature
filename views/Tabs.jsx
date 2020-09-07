@@ -6,10 +6,10 @@ export default class Tabs extends React.Component {
     render () {
         return (
                 <ul class="tabs">
-                    <li data-tab-target="#primary" class="active tab"><InboxTwoToneIcon className="tab-icons"/> Primary</li>
-                    <li data-tab-target="#urgent" class="tab" ><PriorityHighRoundedIcon className="tab-icons" />Urgent</li>
-                    <li data-tab-target="#key-set-A" class="tab"><img src="./public/filter.svg" className="tab-icons" />Key Set 1</li>
-                    <li data-tab-target="#key-set-B" class="tab"><img src="./public/filter.svg" className="tab-icons" />Key Set 2</li>
+                    <li data-tab-target="#primary" className="active tab"><InboxTwoToneIcon className="tab-icons"/> Primary</li>
+                    <li data-tab-target="#urgent" className="tab" ><PriorityHighRoundedIcon className="tab-icons" />Urgent</li>
+                    <li data-tab-target="#key-set-A" className="tab"><img src="./public/filter.svg" className="tab-icons" />Key Set 1</li>
+                    <li data-tab-target="#key-set-B" className="tab"><img src="./public/filter.svg" className="tab-icons" />Key Set 2</li>
                 </ul>
             )
     }

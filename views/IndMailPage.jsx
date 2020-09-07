@@ -1,7 +1,7 @@
 const React = require('react')
 import { createMuiTheme } from '@material-ui/core/styles';
-import Mail from './Mail'
-export default class MailPage extends React.Component {
+import IndMail from './IndMail'
+export default class IndMailPage extends React.Component {
     render () {
         return (
             <html>
@@ -12,7 +12,7 @@ export default class MailPage extends React.Component {
                     <script src="./public/mail.js" defer></script>
                 </head>
                 <body>
-                    <Mail object={this.props.emails}/>
+                    <IndMail object={this.props}/>
                 </body>
             </html>
             )

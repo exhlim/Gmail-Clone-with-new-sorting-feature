@@ -4,10 +4,11 @@ import PriorityHighRoundedIcon from '@material-ui/icons/PriorityHighRounded';
 import PrimaryInbox from './PrimaryInbox'
 import Tabs from './Tabs'
 import UrgentEmails from './UrgentEmails'
+import DisplayIndEmail from './DisplayIndEmail'
 
-export default class MailViewComponent extends React.Component {
+export default class IndViewComponent extends React.Component {
     render () {
-        let emails = this.props.object3;
+        let emails = this.props.object3.emails;
         let urgentEmails = [];
         let keySetA = [];
         let keySetB = [];
@@ -38,8 +39,11 @@ export default class MailViewComponent extends React.Component {
         return (
             <div className="mail-component">
                     <Tabs />
-                    <div class="tab-content">
-                        <div id="primary" data-tab-content class="active">
+                    <div className="tab-content">
+                        <div id="current" data-tab-content className="active">
+                            <DisplayIndEmail object={this.props.object3.indemail[0].content}/>
+                        </div>
+                        <div id="primary" data-tab-content>
                         {emails.map(email => (
                             <PrimaryInbox
                                 sender={email.sender}
@@ -83,6 +87,7 @@ export default class MailViewComponent extends React.Component {
                             />
                         ))}
                         </div>
+
                     </div>
             </div>
             )

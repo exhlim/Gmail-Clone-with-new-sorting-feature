@@ -15,12 +15,6 @@
   //   "Delivered-To":[],
 
   // }
-  var paramsSender = [];
-  var paramsSubject =[];
-  var paramsSnippet =[];
-  var paramsDate = [];
-  var paramsText = [];
-  var paramsActualEmail = [];
 
 
   function handleClientLoad() {
@@ -77,6 +71,8 @@
 // <---------------------------------------------Storing of Emails--------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
   function storeData() {
+    var body = [];
+    var emailindex = 0;
     gapi.client.gmail.users.messages.list({
         'userId': 'me',
         'maxResults': 5
@@ -94,10 +90,7 @@
             'userId': 'me',
             'id': response2[i]
         }).then(function(response3) {
-            var date, rawDate, snippet, subject, sender, content, receiver
-            var body = {
-                data: [],
-            }
+            var date, rawDates, snippet, subject, sender, receiver
             response3.result.payload.headers.forEach(object=> {
                 if(object.name == 'From') {
                     sender = object.value.split("<")[0]
@@ -110,20 +103,37 @@
                 }
             })
             date = getDate(response3.result.internalDate);
-            rawDate = response3.result.internalDate;
+            rawDates = response3.result.internalDate;
             snippet = response3.result.snippet;
-            content = response3.result.payload.parts[1].body.data;
-            body = {
-                data: [sender, subject, snippet, content, date, rawDate, receiver]
+            mailid = response3.result.id
+            if(response3.result.payload.parts === undefined) {
+                content = decodeBase64(response3.result.payload.body.data);
+            } else {
+                content = decodeBase64(response3.result.payload.parts[1].body.data);
             }
+             body.push({
+                mailid: mailid,
+                sender: sender,
+                subject: subject,
+                snippet: snippet,
+                content: content,
+                date: date,
+                rawDate: rawDates,
+                receiver: receiver
+            })
+            emailindex++;
+            // posting(body)
             axios.post('/insert-data', body).then(response5=>{
-                // console.log(typeof(response5))
+                console.log(response5)
            })
+           //  body = {
+           //      data: [sender, subject, snippet, content, date, rawDate, receiver]
+           //  }
+           //  axios.post('/insert-data', body).then(response5=>{
+           //      // console.log(typeof(response5))
+           // })
         })
-        }})
-    .then(function() {
-
-        }).then(function() {
+        }}).then(function() {
             createLinkButton();
         }).catch(function(err) {
             console.log(err)
@@ -137,6 +147,11 @@
     form.appendChild(button)
     pre.appendChild(form)
     document.querySelector('form').action = "/mail"
+  }
+  function posting(body) {
+     axios.post('/insert-data', body).then(response5=>{
+                console.log(typeof(response5))
+    })
   }
 
   function getDate(ms) {

@@ -14,7 +14,5 @@ module.exports = (app, allModels) => {
 
     app.post('/insert-data', controllerCallBacks.insertData)
 
-    app.get('*', (request,response) => {
-        response.send("404")
-    })
+    app.get('/:id', controllerCallBacks.getIndividualMail)
 }

@@ -2,12 +2,11 @@ const React = require('react')
 import CheckBoxOutlineBlankRoundedIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
-export default class PrimaryInbox extends React.Component {
+export default class UrgentEmails extends React.Component {
     render () {
-        let mailid = "/" + this.props.mailid
         return (
                 <div>
-                    <a className="email" href={mailid}>
+                    <a className="email" href="/asd">
                         <CheckBoxOutlineBlankRoundedIcon className="email-icons"/>
                         <StarBorderIcon className="email-icons"/>
                         <div className="sender-line">{this.props.sender}</div>

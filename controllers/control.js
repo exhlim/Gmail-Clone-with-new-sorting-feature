@@ -98,23 +98,46 @@ module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 // <------------------------------------------------Home Page ------------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
-    let homePage=(request,response)=> {
-        response.render('MailPage')
-    }
-
-
+    let sortedEmails;
     let insertData = (request, response) =>{
-        let params = [
-            request.body.data
-        ]
-        db.poolRoutes.insertDataFX(params[0], (error, result)=>{
-            if(error) {
-                response.status(404).send("Failed to insert in DB")
-            } else {
-                response.send(result)
-            }
-        })
+        sortedEmails = request.body.slice(0);
+            sortedEmails.sort(function(a,b) {
+                return b.rawDate - a.rawDate;
+            });
+
+        // db.poolRoutes.insertDataFX(params[0], (error, result)=>{
+        //     if(error) {
+        //         response.status(404).send("Failed to insert in DB")
+        //     } else {
+        //         response.send(result)
+        //     }
+        // })
     }
+    let homePage=(request,response)=> {
+        let params = {
+            emails: sortedEmails
+        }
+        response.render('MailPage', params)
+    }
+    let getIndividualMail=(request,response)=> {
+        let individualemail = [];
+        function filter(sortedEmails) {
+            sortedEmails.forEach(email=> {
+                if(email.mailid == request.params.id) {
+                    individualemail.push(email)
+                }
+            })
+        }
+        filter(sortedEmails)
+        let params = {
+            emails : sortedEmails,
+            indemail : individualemail
+        }
+        response.render('IndMailPage', params)
+    }
+
+
+
 
 
 // <----------------------------------------------------------------------------------------------------------> //
@@ -131,7 +154,8 @@ module.exports = (db) => {
         emailLinkPage,
 
         homePage,
-        insertData
+        insertData,
+        getIndividualMail
         // linking
 
     }
