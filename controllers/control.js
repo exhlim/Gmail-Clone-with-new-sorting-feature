@@ -8,20 +8,18 @@ module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 
     let loginPage=(request,response)=> {
-        console.log("akjsgdgaskdjashdk")
-        response.send("ASDASasdasdasasD")
-        // if(!request.cookies['loggedIn']) {
-        //     response.render('LoginPage')
-        // } else {
-        //     let reference = request.cookies['reference']
-        //     let cookieValue = request.cookies['loggedIn']
-        //     if(cookieValue === sha256(`true${SALT}-${reference}`)) {
-        //         // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
-        //         response.send("You are still logged in");
-        //     } else {
-        //         response.send("You are tempering");
-        //     }
-        // }
+        if(!request.cookies['loggedIn']) {
+            response.render('LoginPage')
+        } else {
+            let reference = request.cookies['reference']
+            let cookieValue = request.cookies['loggedIn']
+            if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+                // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
+                response.send("You are still logged in");
+            } else {
+                response.send("You are tempering");
+            }
+        }
     }
         let loginCheck=(request,response)=> {
         let params = [
@@ -84,7 +82,8 @@ module.exports = (db) => {
                             <button id="authorize_button" style="display: none;">Authorize</button>
                             <button id="signout_button" style="display: none;">Sign Out</button>
                             <pre id="content" style="white-space: pre-wrap;"></pre>
-                            <script type="text/javascript" src="main.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+                            <script type="text/javascript" src="./public/main.js"></script>
                             <script async defer src="https://apis.google.com/js/api.js"
                               onload="this.onload=function(){};handleClientLoad()"
                               onreadystatechange="if (this.readyState === 'complete') this.onload()">
@@ -102,6 +101,22 @@ module.exports = (db) => {
     let homePage=(request,response)=> {
         response.render('MailPage')
     }
+
+
+    let insertData = (request, response) =>{
+        let params = [
+            request.body.data
+        ]
+        db.poolRoutes.insertDataFX(params[0], (error, result)=>{
+            if(error) {
+                response.status(404).send("Failed to insert in DB")
+            } else {
+                response.send(result)
+            }
+        })
+    }
+
+
 // <----------------------------------------------------------------------------------------------------------> //
 // <-********************************************************************************************************-> //
 // <----------------------------------------------------------------------------------------------------------> //
@@ -115,7 +130,8 @@ module.exports = (db) => {
 
         emailLinkPage,
 
-        homePage
+        homePage,
+        insertData
         // linking
 
     }

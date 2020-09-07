@@ -7,6 +7,22 @@
   var authorizeButton = document.getElementById('authorize_button');
   var signoutButton = document.getElementById('signout_button');
 
+ // var axios =  require('axios')
+
+  // var paramsObj={
+  //   "From":[],
+  //   "Subject": [],
+  //   "Delivered-To":[],
+
+  // }
+  var paramsSender = [];
+  var paramsSubject =[];
+  var paramsSnippet =[];
+  var paramsDate = [];
+  var paramsText = [];
+  var paramsActualEmail = [];
+
+
   function handleClientLoad() {
     gapi.load('client:auth2', initClient);
   }
@@ -56,13 +72,14 @@
     pre.appendChild(textContent);
   }
 
+
 // <----------------------------------------------------------------------------------------------------------> //
 // <---------------------------------------------Storing of Emails--------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
   function storeData() {
     gapi.client.gmail.users.messages.list({
         'userId': 'me',
-        'maxResults': 1400
+        'maxResults': 5
     })
     .then(function(response) {
          var messagesIdArray = [];
@@ -71,39 +88,45 @@
             })
             return messagesIdArray
     }).then(function(response2) {
-        gapi.client.gmail.users.messages.get({
-        'userId': 'me',
-        'id': response2[4]
+        // LOOP THROUGH EACH INDIVIDUAL MESSAGE ID
+        for(let i = 0; i < response2.length; i++) {
+            gapi.client.gmail.users.messages.get({
+            'userId': 'me',
+            'id': response2[i]
         }).then(function(response3) {
-            console.log(response3)
-            let date = getDate("1599314426000")
-            console.log(response3.result.payload.parts[1].body)
-            let decode = response3.result.payload.parts[1].body.data
-
-            // EMAIL response3.result.payload.headers.forEach(object=> {
-            //         if(object.name == 'From') {
-            //             console.log(object.value)
-            //         }
-            //     })
-            // CHECK BOX
-            // STAR
-
-            // TEXT response3.result.payload.headers.forEach(object=> {
-                    // if(object.name == 'Subject') {
-                    //     console.log(Object.values(object))
-                    // }
-            //     if(object.name == 'From') {
-            //         console.log(object.value)
-            //     }
-            // })
-
-            // SUBJECT
-
-            /// SNIPPET response3.result.snippet
-            createLinkButton();
+            var date, rawDate, snippet, subject, sender, content, receiver
+            var body = {
+                data: [],
+            }
+            response3.result.payload.headers.forEach(object=> {
+                if(object.name == 'From') {
+                    sender = object.value.split("<")[0]
+                }
+                if(object.name == "Subject") {
+                    subject = object.value
+                }
+                if(object.name == "Delivered-To") {
+                    receiver = object.value
+                }
+            })
+            date = getDate(response3.result.internalDate);
+            rawDate = response3.result.internalDate;
+            snippet = response3.result.snippet;
+            content = response3.result.payload.parts[1].body.data;
+            body = {
+                data: [sender, subject, snippet, content, date, rawDate, receiver]
+            }
+            axios.post('/insert-data', body).then(response5=>{
+                // console.log(typeof(response5))
+           })
         })
-    }).catch(function(err) {
-        response.send(err);
+        }})
+    .then(function() {
+
+        }).then(function() {
+            createLinkButton();
+        }).catch(function(err) {
+            console.log(err)
     })
   }
   function createLinkButton() {

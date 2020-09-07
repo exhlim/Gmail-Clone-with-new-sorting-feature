@@ -24,6 +24,15 @@ module.exports = (poolParameter) => {
     let homeFX=(params, callback)=> {
         callback(null, null)
     }
+
+    let insertDataFX = (params, callback) =>{
+        let query = `INSERT INTO emaildb (sender,subject,snippet,content,log,raw_date,email_input) VALUES ($1,$2,$3,$4,$5,$6,$7)`;
+        poolParameter.query(query,params, (err, result)=>{
+            callback(err, result);
+        })
+    }
+
+
     // let insertNewSongFX =(params, callback)=>{
     //     let insertQuery = 'INSERT INTO songs (title,album,preview_link,artwork,artist_id) VALUES ($1,$2,$3,$4,$5)'
     //     poolParameter.query(insertQuery,params, (err, result)=> {
@@ -35,6 +44,7 @@ module.exports = (poolParameter) => {
         loginCheckFX,
         registerCheckFX,
         registerFX,
-        homeFX
+        homeFX,
+        insertDataFX
     }
 }

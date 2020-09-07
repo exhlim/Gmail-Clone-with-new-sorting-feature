@@ -5,7 +5,7 @@ export default class LoginPage extends React.Component {
         return (
             <html>
             <head>
-                <link rel="icon" href="./gmail.svg"/>
+                <link rel="icon" href="./public/gmail.svg"/>
                 <title>Gmail</title>
             </head>
             <body>

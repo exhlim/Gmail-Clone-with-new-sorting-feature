@@ -11,6 +11,9 @@ module.exports = (app, allModels) => {
     app.get('/emailinput', controllerCallBacks.emailLinkPage)
 
     app.get('/mail', controllerCallBacks.homePage)
+
+    app.post('/insert-data', controllerCallBacks.insertData)
+
     app.get('*', (request,response) => {
         response.send("404")
     })

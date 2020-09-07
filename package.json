@@ -17,12 +17,13 @@
     "url": "https://github.com/exhlim/sei-24-Project_2/issues"
   },
   "engines": {
-  	"node": "^14.6.0"
+    "node": "^14.6.0"
   },
   "homepage": "https://github.com/exhlim/sei-24-Project_2#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "axios": "^0.20.0",
     "buffer": "^5.6.0",
     "consolidate": "^0.15.1",
     "cookie-parser": "^1.4.5",

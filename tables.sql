@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS emaildb (
 	sender TEXT,
 	subject TEXT,
 	content TEXT,
+	snippet TEXT,
 	log TEXT,
+	raw_date TEXT,
 	email_input TEXT
 );

@@ -18,7 +18,6 @@ if( process.env.DATABASE_URL ){
         rejectUnauthorized: false
     }
   };
-
 }else{
   configs = {
     user: 'eugenelim',
