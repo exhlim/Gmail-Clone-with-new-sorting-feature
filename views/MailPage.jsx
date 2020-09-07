@@ -6,10 +6,10 @@ export default class MailPage extends React.Component {
         return (
             <html>
                 <head>
-                    <link rel="stylesheet" type="text/css" href="/home.css"/>
-                    <link rel="icon" href="./gmail.svg"/>
+                    <link rel="stylesheet" type="text/css" href="./public/home.css"/>
+                    <link rel="icon" href="./public/gmail.svg"/>
                     <title>Gmail</title>
-                    <script src="mail.js" defer></script>
+                    <script src="./public/mail.js" defer></script>
                 </head>
                 <body>
                     <Mail />

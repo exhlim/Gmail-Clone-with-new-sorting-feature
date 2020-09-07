@@ -6,7 +6,7 @@ export default class ReisteringPage extends React.Component {
             <html>
                 <head>
                 <title>Gmail</title>
-                <link rel="icon" href="./gmail.svg"/>
+                <link rel="icon" href="./public/gmail.svg"/>
                 </head>
                 <body>
                     <form method="POST" action="/register">

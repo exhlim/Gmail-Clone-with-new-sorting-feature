@@ -9,7 +9,7 @@ export default class Bars extends React.Component {
                     <div class="lines"></div>
                     <div class="lines"></div>
                 </div>
-                <img src="./gmail.svg" className="logo"/>
+                <img src="./public/gmail.svg" className="logo"/>
                 <a className="brand" href="/mail">Gmail</a>
             </div>
             )

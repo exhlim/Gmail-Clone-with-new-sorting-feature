@@ -10,7 +10,7 @@ export default class Sidebar extends React.Component {
         return (
                 <div className="sidebar">
                     <button className='composeComponent'>
-                        <img src="./plus.svg" className="plus"/>
+                        <img src="./public/plus.svg" className="plus"/>
                         <p id="compose">Compose</p>
                     </button>
                     <SideBarOptions Icon={InboxTwoToneIcon} label="Inbox" unread="5"/>

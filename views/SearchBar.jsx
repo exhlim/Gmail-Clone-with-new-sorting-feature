@@ -10,7 +10,7 @@ export default class SearchBar extends React.Component {
         return (
                 <div class="searchbar">
                     <div className="outsideSearch">
-                            <img src="./search.png" className="searchIcon"/>
+                            <img src="./public/search.png" className="searchIcon"/>
                     </div>
                     <input type="text" className="searchbox" placeholder="Search mail"/>
                 </div>
