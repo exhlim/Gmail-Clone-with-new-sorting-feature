@@ -7,18 +7,19 @@ module.exports = (db) => {
 // <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
     let loginPage=(request,response)=> {
-        if(!request.cookies['loggedIn']) {
-            response.render('LoginPage')
-        } else {
-            let reference = request.cookies['reference']
-            let cookieValue = request.cookies['loggedIn']
-            if(cookieValue === sha256(`true${SALT}-${reference}`)) {
-                // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
-                response.send("You are still logged in");
-            } else {
-                response.send("You are tempering");
-            }
-        }
+        response.send("LOGIN PAGE")
+        // if(!request.cookies['loggedIn']) {
+        //     response.render('LoginPage')
+        // } else {
+        //     let reference = request.cookies['reference']
+        //     let cookieValue = request.cookies['loggedIn']
+        //     if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+        //         // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
+        //         response.send("You are still logged in");
+        //     } else {
+        //         response.send("You are tempering");
+        //     }
+        // }
     }
     let loginCheck=(request,response)=> {
         let params = [
