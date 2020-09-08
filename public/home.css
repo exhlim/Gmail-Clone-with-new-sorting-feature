@@ -228,7 +228,7 @@ body {
 	cursor: pointer;
 	justify-content: flex-start;
 	flex-grow: 0;
-
+	max-width: 950px;
 }
 .email:hover {
 	background-color: lightgrey;
@@ -267,4 +267,9 @@ body {
 	color: white;
 	height: 70px;
 	justify-content: space-between;
+}
+.email-display {
+	padding: 50px;
+	min-height: 600px;
+	max-width: 950px;
 }

@@ -15,7 +15,7 @@ export default class Mail extends React.Component {
                         <SearchBar />
                     </div>
                     <div className="main">
-                        <Sidebar />
+                        <Sidebar object={this.props.object}/>
                         <MailMainComponent object2={this.props.object}/>
                     </div>
                 </body>

@@ -13,7 +13,7 @@ export default class Sidebar extends React.Component {
                         <img src="./public/plus.svg" className="plus"/>
                         <p id="compose">Compose</p>
                     </button>
-                    <SideBarOptions Icon={InboxTwoToneIcon} label="Inbox" unread="5"/>
+                    <SideBarOptions Icon={InboxTwoToneIcon} label="Inbox" unread={this.props.object.length}/>
                     <SideBarOptions Icon={StarTwoToneIcon} label="Starred" unread=""/>
                     <SideBarOptions Icon={SendTwoToneIcon} label="Sent" unread=""/>
                     <SideBarOptions Icon={EditTwoToneIcon} label="Drafts" unread="5"/>

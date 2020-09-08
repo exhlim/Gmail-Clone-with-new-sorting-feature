@@ -2,18 +2,19 @@ const sha256=require('js-sha256');
 const cookieParser = require('cookie-parser');
 let SALT = "exhlim";
 let reference = "";
+let sortedEmails;
 module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 // <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
 
-    let loginPage=(request,response)=> {
-        if(!request.cookies['loggedIn']) {
-            response.render('LoginPage')
-        } else {
-            let reference = request.cookies['reference']
-            let cookieValue = request.cookies['loggedIn']
-            if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+let loginPage=(request,response)=> {
+    if(!request.cookies['loggedIn']) {
+        response.render('LoginPage')
+    } else {
+        let reference = request.cookies['reference']
+        let cookieValue = request.cookies['loggedIn']
+        if(cookieValue === sha256(`true${SALT}-${reference}`)) {
                 // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
                 response.send("You are still logged in");
             } else {
@@ -21,7 +22,7 @@ module.exports = (db) => {
             }
         }
     }
-        let loginCheck=(request,response)=> {
+    let loginCheck=(request,response)=> {
         let params = [
         request.body.username,
         sha256(`${request.body.password}`)
@@ -43,7 +44,7 @@ module.exports = (db) => {
     }
     let registerDone=(request,response)=> {
         let params = [
-            request.body.username,
+        request.body.username,
         ]
         db.poolRoutes.registerCheckFX(params, (err,results)=> {
             console.log(results.rows.length)
@@ -69,28 +70,28 @@ module.exports = (db) => {
 // <------------------------------------------Email Input/ GMAIL API------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
 
-    let emailLinkPage=(request,response)=> {
-        response.send(`<!DOCTYPE html>
-                        <html>
-                          <head>
-                            <title>Gmail</title>
-                            <link rel="stylesheet" type="text/css" href="/linkPage.css"/>
-                            <meta charset="utf-8" />
-                          </head>
-                          <body>
-                            <p>Please sign in to the email that you want to link: </p>
-                            <button id="authorize_button" style="display: none;">Authorize</button>
-                            <button id="signout_button" style="display: none;">Sign Out</button>
-                            <pre id="content" style="white-space: pre-wrap;"></pre>
-                            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
-                            <script type="text/javascript" src="./public/main.js"></script>
-                            <script async defer src="https://apis.google.com/js/api.js"
-                              onload="this.onload=function(){};handleClientLoad()"
-                              onreadystatechange="if (this.readyState === 'complete') this.onload()">
-                            </script>
-                          </body>
-                        </html>`)
-    }
+let emailLinkPage=(request,response)=> {
+    response.send(`<!DOCTYPE html>
+        <html>
+        <head>
+        <title>Gmail</title>
+        <link rel="stylesheet" type="text/css" href="/linkPage.css"/>
+        <meta charset="utf-8" />
+        </head>
+        <body>
+        <p>Please sign in to the email that you want to link: </p>
+        <button id="authorize_button" style="display: none;">Authorize</button>
+        <button id="signout_button" style="display: none;">Sign Out</button>
+        <pre id="content" style="white-space: pre-wrap;"></pre>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+        <script type="text/javascript" src="./public/main.js"></script>
+        <script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+        </script>
+        </body>
+        </html>`)
+}
 // <----------------------------------------------------------------------------------------------------------> //
 // <-********************************************************************************************************-> //
 // <----------------------------------------------------------------------------------------------------------> //
@@ -98,31 +99,32 @@ module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 // <------------------------------------------------Home Page ------------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
-    let sortedEmails;
-    let insertData = (request, response) =>{
-        sortedEmails = request.body.slice(0);
-            sortedEmails.sort(function(a,b) {
-                return b.rawDate - a.rawDate;
-            });
 
-        // db.poolRoutes.insertDataFX(params[0], (error, result)=>{
-        //     if(error) {
-        //         response.status(404).send("Failed to insert in DB")
-        //     } else {
-        //         response.send(result)
-        //     }
-        // })
+    // after axios call
+    let insertData = (request, response) =>{
+        sortedEmails = [...request.body.body]
+        sortedEmails.sort(function(a,b) {
+            return b.rawDate - a.rawDate;
+        });
+        response.send()
     }
+
+    //continue button
     let homePage=(request,response)=> {
-        let params = {
-            emails: sortedEmails
-        }
-        response.render('MailPage', params)
+        if(true) {
+            let params = {
+                emails: sortedEmails
+            }
+            response.render('MailPage', params)
+        } else
+         response.render('LoginPage')
+
     }
+    //
     let getIndividualMail=(request,response)=> {
         let individualemail = [];
-        function filter(sortedEmails) {
-            sortedEmails.forEach(email=> {
+        function filter(emails) {
+            emails.forEach(email=> {
                 if(email.mailid == request.params.id) {
                     individualemail.push(email)
                 }
@@ -144,18 +146,18 @@ module.exports = (db) => {
 // <-********************************************************************************************************-> //
 // <----------------------------------------------------------------------------------------------------------> //
 
-    return {
-        loginPage,
-        loginCheck,
+return {
+    loginPage,
+    loginCheck,
 
-        registerPage,
-        registerDone,
+    registerPage,
+    registerDone,
 
-        emailLinkPage,
+    emailLinkPage,
 
-        homePage,
-        insertData,
-        getIndividualMail
+    homePage,
+    insertData,
+    getIndividualMail
         // linking
 
     }

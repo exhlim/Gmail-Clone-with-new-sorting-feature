@@ -15,7 +15,7 @@ export default class IndMail extends React.Component {
                         <SearchBar />
                     </div>
                     <div className="main">
-                        <Sidebar />
+                        <Sidebar object={this.props.object.emails}/>
                         <IndMainComponent object2={this.props.object}/>
                     </div>
                 </body>

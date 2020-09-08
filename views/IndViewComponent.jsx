@@ -40,8 +40,8 @@ export default class IndViewComponent extends React.Component {
             <div className="mail-component">
                     <Tabs />
                     <div className="tab-content">
-                        <div id="current" data-tab-content className="active">
-                            <DisplayIndEmail object={this.props.object3.indemail[0].content}/>
+                        <div id="current" data-tab-content className="active email-display">
+                                <DisplayIndEmail object={this.props.object3.indemail[0].content}/>
                         </div>
                         <div id="primary" data-tab-content>
                         {emails.map(email => (
