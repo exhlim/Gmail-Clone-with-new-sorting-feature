@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 let SALT = "exhlim";
 let reference = "";
 let sortedEmails;
+let username;
 module.exports = (db) => {
 // <----------------------------------------------------------------------------------------------------------> //
 // <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
@@ -16,13 +17,17 @@ let loginPage=(request,response)=> {
         let cookieValue = request.cookies['loggedIn']
         if(cookieValue === sha256(`true${SALT}-${reference}`)) {
                 // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
-                response.send("You are still logged in");
+                let params = {
+                    emails: sortedEmails
+                }
+                response.render('MailPage', params)
             } else {
                 response.send("You are tempering");
             }
         }
     }
     let loginCheck=(request,response)=> {
+        username = request.body.username
         let params = [
         request.body.username,
         sha256(`${request.body.password}`)
@@ -43,6 +48,7 @@ let loginPage=(request,response)=> {
         response.render("RegisteringPage")
     }
     let registerDone=(request,response)=> {
+        username = request.body.username
         let params = [
         request.body.username,
         ]
@@ -81,7 +87,7 @@ let emailLinkPage=(request,response)=> {
         <body>
         <p>Please sign in to the email that you want to link: </p>
         <button id="authorize_button" style="display: none;">Authorize</button>
-        <button id="signout_button" style="display: none;">Sign Out</button>
+        <button id="signout_button" style="display: none;">Stop</button>
         <pre id="content" style="white-space: pre-wrap;"></pre>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
         <script type="text/javascript" src="./public/main.js"></script>
@@ -99,8 +105,6 @@ let emailLinkPage=(request,response)=> {
 // <----------------------------------------------------------------------------------------------------------> //
 // <------------------------------------------------Home Page ------------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
-
-    // after axios call
     let insertData = (request, response) =>{
         sortedEmails = [...request.body.body]
         sortedEmails.sort(function(a,b) {
@@ -108,8 +112,6 @@ let emailLinkPage=(request,response)=> {
         });
         response.send()
     }
-
-    //continue button
     let homePage=(request,response)=> {
         if(true) {
             let params = {
@@ -117,10 +119,9 @@ let emailLinkPage=(request,response)=> {
             }
             response.render('MailPage', params)
         } else
-         response.render('LoginPage')
+        response.render('LoginPage')
 
     }
-    //
     let getIndividualMail=(request,response)=> {
         let individualemail = [];
         function filter(emails) {
@@ -137,7 +138,13 @@ let emailLinkPage=(request,response)=> {
         }
         response.render('IndMailPage', params)
     }
+    let insertCrux=(request,response)=> {
+        let arrayOfKeywords = request.body.keywords.split("\r\n")
+        arrayOfKeywords = arrayOfKeywords.join('!');
+            // db.poolRoutes.insertKeywordFX(arrayOfKeywords, (err, result)=> {
 
+            // })
+    }
 
 
 
@@ -157,8 +164,10 @@ return {
 
     homePage,
     insertData,
-    getIndividualMail
-        // linking
+
+    getIndividualMail,
+
+    insertCrux
 
     }
 }

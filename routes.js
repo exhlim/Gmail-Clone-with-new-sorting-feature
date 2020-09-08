@@ -14,5 +14,7 @@ module.exports = (app, allModels) => {
 
     app.post('/insert-data', controllerCallBacks.insertData)
 
+    app.put('/addcrux', controllerCallBacks.insertCrux)
+
     app.get('/:id', controllerCallBacks.getIndividualMail)
 }

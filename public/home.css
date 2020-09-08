@@ -155,8 +155,35 @@ body {
 	text-align: right;
 	width: 100%;
 }
+.sidebarInbox {
+	text-decoration: none;
+}
 .sidebaroptions:hover {
 	background-color: lightgrey;
+}
+.crux-icon {
+	width: 25px;
+	margin-right: 7px;
+}
+.crux-form {
+	width: 100%;
+	resize: none;
+	text-align: center;
+}
+.crux-form2 {
+	resize: none;
+	height: 300px;
+	text-overflow: ellipsis;
+	text-align: justify;
+	line-height: 20px;
+}
+.crux-submit-button {
+	width: 100%;
+	background-color: white;
+	height: 25px;
+	cursor: pointer;
+	border-radius: 10px;
+	text-align: center;
 }
 /*-------------------------------SIDEBAR CONTENT-------------------------------*/
 
@@ -269,7 +296,7 @@ body {
 	justify-content: space-between;
 }
 .email-display {
-	padding: 50px;
+	padding: 30px;
 	min-height: 600px;
 	max-width: 950px;
 }
