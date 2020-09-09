@@ -165,8 +165,9 @@ let homePage=(request,response)=> {
         } else {
             let arrayOfKeywords = request.body.keywords.split("\r\n")
             arrayOfKeywords = arrayOfKeywords.join('!!!!');
-            db.poolRoutes.checkTabNameFX([request.body.tabName], (err,results)=> {
+            db.poolRoutes.checkTabNameFX([request.body.tabName, username], (err,results)=> {
                 if(results.rows.length !== 0) {
+                    console.log(username)
                     let object2 = {
                         emails: sortedEmails,
                         keywordData: globalDataVar
@@ -183,14 +184,14 @@ let homePage=(request,response)=> {
                     })
                 } else {
                  let insertKeywords = [
-                 arrayOfKeywords,
-                 username
+                    arrayOfKeywords,
+                    username
                  ]
                  db.poolRoutes.insertKeywordFX(insertKeywords, (err, id)=> {
                     let insertTabname = [
-                    request.body.tabName,
-                    username,
-                    id.rows[0].id
+                        request.body.tabName,
+                        username,
+                        id.rows[0].id
                     ]
                     db.poolRoutes.insertTabNameFX(insertTabname, (err,result)=> {
 

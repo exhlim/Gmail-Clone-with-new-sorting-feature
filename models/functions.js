@@ -44,7 +44,7 @@ module.exports = (poolParameter) => {
         })
     }
     let checkTabNameFX=(params, callback)=> {
-        let query = `SELECT * FROM keyworddb WHERE tabname=$1`
+        let query = `SELECT * FROM keyworddb WHERE tabname=$1 AND username=$2`
         poolParameter.query(query,params, (err,result)=> {
             callback(err,result)
         })

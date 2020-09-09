@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS userdb (
 	id SERIAL PRIMARY KEY,
 	username TEXT,
-	password TEXT,
-	email_input TEXT
+	password TEXT
 );
 
 CREATE TABLE IF NOT EXISTS keyworddb (
