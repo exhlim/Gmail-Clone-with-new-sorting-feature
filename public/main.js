@@ -67,8 +67,7 @@ function storeData() {
         'userId': 'me',
         "labelIds": [
         "INBOX"
-        ],
-        'maxResults': 7
+        ]
     })
     .then(function(response) {
         // mapping messagesID array
@@ -124,7 +123,6 @@ function storeData() {
             })
             axios.post('/insert-data', {body}).then(response5=>{
                 createLinkButton();
-                console.log("INSIDE AXIOS .THEN")
             })
         })
     })

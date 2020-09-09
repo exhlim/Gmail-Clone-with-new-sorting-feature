@@ -26,13 +26,47 @@ module.exports = (poolParameter) => {
     }
 
     let insertKeywordFX = (params, callback)=> {
-        let query = `UPDATE userdb SET keywords `
+        let query = `INSERT INTO keyworddb (keywords,username) VALUES ($1,$2) RETURNING id`
+        poolParameter.query(query,params, (err,result)=> {
+            callback(err,result)
+        })
     }
-
+    let insertTabNameFX = (params, callback)=> {
+        let query = `UPDATE keyworddb SET tabname=$1,username=$2 WHERE id=$3`
+        poolParameter.query(query,params, (err,result)=> {
+            callback(err,result)
+        })
+    }
+    let getKeywordDataFX = (params,callback)=> {
+        let query = `SELECT * FROM keyworddb WHERE username=$1`
+        poolParameter.query(query,params, (err,result)=> {
+            callback(err,result)
+        })
+    }
+    let checkTabNameFX=(params, callback)=> {
+        let query = `SELECT * FROM keyworddb WHERE tabname=$1`
+        poolParameter.query(query,params, (err,result)=> {
+            callback(err,result)
+        })
+    }
+    let updateKeywordsFX=(params, callback)=> {
+        let query = `UPDATE keyworddb SET keywords=$1 WHERE tabname=$2`
+        poolParameter.query(query,params, (err,result)=> {
+            callback(err,result)
+        })
+    }
     return {
         loginCheckFX,
         registerCheckFX,
+
         registerFX,
-        homeFX
+        homeFX,
+
+        insertKeywordFX,
+        insertTabNameFX,
+        getKeywordDataFX,
+
+        checkTabNameFX,
+        updateKeywordsFX
     }
 }

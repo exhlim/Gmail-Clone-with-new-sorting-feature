@@ -86,11 +86,19 @@ body {
 	background-color: transparent;
 	border-radius: 9px;
 	height: 90%;
-	width: 100%;
 }
 .searchbox:focus {
 	background-color: white;
 	width: 91%;
+}
+.logout {
+	position: relative;
+	left: 30%;
+}
+.logout-button {
+	border-radius: 5px;
+	background-color: white;
+	font-weight: bold;
 }
 /*-------------------------------HEADER CONTENT--------------------------------*/
 
@@ -291,6 +299,7 @@ body {
 	display: flex;
 	align-items: center;
 	font-size: 14px;
+	padding: 10px;
 	color: white;
 	height: 70px;
 	justify-content: space-between;

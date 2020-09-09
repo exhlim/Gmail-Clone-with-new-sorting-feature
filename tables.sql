@@ -5,13 +5,9 @@ CREATE TABLE IF NOT EXISTS userdb (
 	email_input TEXT
 );
 
-CREATE TABLE IF NOT EXISTS emaildb (
+CREATE TABLE IF NOT EXISTS keyworddb (
 	id SERIAL PRIMARY KEY,
-	sender TEXT,
-	subject TEXT,
-	content TEXT,
-	snippet TEXT,
-	log TEXT,
-	raw_date TEXT,
-	email_input TEXT
+	username TEXT,
+	keywords TEXT,
+	tabname TEXT
 );

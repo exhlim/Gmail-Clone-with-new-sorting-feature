@@ -16,5 +16,7 @@ module.exports = (app, allModels) => {
 
     app.put('/addcrux', controllerCallBacks.insertCrux)
 
+    app.get('/logout', controllerCallBacks.logout)
+
     app.get('/:id', controllerCallBacks.getIndividualMail)
 }

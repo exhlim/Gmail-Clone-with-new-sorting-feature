@@ -12,7 +12,7 @@ export default class MailPage extends React.Component {
                     <script src="./public/mail.js" defer></script>
                 </head>
                 <body>
-                    <Mail object={this.props.emails}/>
+                    <Mail object={this.props}/>
                 </body>
             </html>
             )
