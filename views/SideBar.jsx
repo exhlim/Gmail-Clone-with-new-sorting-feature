@@ -17,7 +17,7 @@ export default class Sidebar extends React.Component {
                     <a href="/mail" className="sidebarInbox"><SideBarOptions Icon={InboxTwoToneIcon} label="Inbox" unread={this.props.object.length || this.props.object.emails.length}/></a>
                     <SideBarOptions Icon={StarTwoToneIcon} label="Starred" unread=""/>
                     <SideBarOptions Icon={SendTwoToneIcon} label="Sent" unread=""/>
-                    <SideBarOptions Icon={EditTwoToneIcon} label="Drafts" unread="5"/>
+                    <SideBarOptions Icon={EditTwoToneIcon} label="Drafts" unread=""/>
                     <div className="sidebaroptions">
                         <div className="crux-icon"><img src="./public/filter.svg" /></div>
                         <div className="sidebartext">Define Crux</div>

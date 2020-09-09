@@ -36,9 +36,8 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
       authorizeButton.style.display = 'none';
-      signoutButton.style.display = 'none';
+      signoutButton.style.display = 'block';
       storeData()
-      // Store all my data i need inside my query
   } else {
       authorizeButton.style.display = 'block';
       signoutButton.style.display = 'none';
@@ -67,7 +66,8 @@ function storeData() {
         'userId': 'me',
         "labelIds": [
         "INBOX"
-        ]
+        ],
+        "maxResults": 10
     })
     .then(function(response) {
         // mapping messagesID array
