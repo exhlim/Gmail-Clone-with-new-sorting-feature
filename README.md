@@ -2,17 +2,11 @@
 
 ---
 
-## SEI-24-Project 2
-
----
-
-### Motivation
----
+### Motivation ###
 
 Main motivation for this project revolves around trying to sort emails before their being read, based on its content. Decided on using Gmail as a reference and to challenge myself with Gmails RESTful API's.
 
-### What is Crux?
----
+### What is Crux? ###
 
 Crux is the name of the feature implemented in this project to sort emails. It primarily uses keywords which the user defines to help sort emails into their respective tabs. Keywords are matched with the contents of the emails and when a match is found, those emails will be rendered under that specific tab.
 
@@ -34,8 +28,16 @@ When defining your keywords, be specific and more importantly, ask yourself:
 
 What is the Crux of my emails?
 
-### Use Cases
----
+### Features ###
+
+1. Website register/login
+2. Google account linking/authentication
+3. Default Urgent Tab
+4. Defining up to 3 Crux
+5. Viewing of emails in primary inbox
+6. Logout
+
+### Use Cases ###
 
 Human and machine integration. It is possible to set the machine (feature) up for success through minor alterations by the user such as adding the keywords in one of the email threads and coloring it the background color. 
 
@@ -44,8 +46,9 @@ For users that don't really sort their emails, this feature is a small step towa
 Users that are working on multiple project with multiple people where emails from one sender may not always be referring to the same project. 
 
 
-### Side note
----
+### Side note ###
+
+Emails are rendered after authorization. For security reasons emails that have already been rendered in the past are NOT saved into any database. They are taken from Gmail API then stored in a global variable and rendered directly. Once you click on the log out button on the top right of the mail main page, all values of global variables are set back to being empty.
 
 This feature is not a replacement for existing sorting features such as labels and rules. It is more of an add-on to enhance user experiences especially for those that are receiving gigabytes of emails every year.
 

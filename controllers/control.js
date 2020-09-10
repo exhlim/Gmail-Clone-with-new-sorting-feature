@@ -211,15 +211,9 @@ let homePage=(request,response)=> {
 
 
      let logout=(request,response)=> {
-        // request.cookies["reference"].Expires = DateTime.Now.AddDays(-1);
-        // request.cookies["loggedIn"].Expires = DateTime.Now.AddDays(-1);
-        // request.cookies["G_AUTHUSER_H"].Expires = DateTime.Now.AddDays(-1);
-        // request.cookies.remove('reference')
-        // request.cookies.remove('loggedIn')
-        // request.cookies.remove('G_AUTHUSER_H')
-        // request.cookies["reference"] = ""
-        // request.cookies["loggedIn"] = ""
-        // request.cookies["G_AUTHUSER_H"] =
+        username = "";
+        sortedEmails = [];
+        globalDataVar = [];
         response.cookie("loggedIn", "")
         response.cookie("reference", "")
         response.cookie("G_AUTHUSER_H", "")
