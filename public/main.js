@@ -67,9 +67,10 @@ function storeData() {
         "labelIds": [
         "INBOX"
         ],
-        "maxResults": 10
+        "maxResults": 5
     })
     .then(function(response) {
+        console.log(response)
         // mapping messagesID array
         var messagesIdArray = response.result.messages.map(message => {
             return message.id
