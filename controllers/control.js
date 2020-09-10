@@ -86,7 +86,7 @@ let emailLinkPage=(request,response)=> {
         <head>
         <title>Gmail</title>
         <link rel="icon" href="./public/gmail.svg"/>
-        <link rel="stylesheet" type="text/css" href="/linkPage.css"/>
+        <link rel="stylesheet" type="text/css" href="./public/linkPage.css"/>
         <meta charset="utf-8" />
         </head>
         <body>
