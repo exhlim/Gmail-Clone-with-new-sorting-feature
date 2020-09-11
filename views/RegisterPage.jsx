@@ -17,8 +17,8 @@ export default class LoginPage2 extends React.Component {
             <div class="container">
             <div class="row">
             <div class="col-md-4 login-sec">
-            <h2 class="text-center">Login Now</h2>
-            <form class="login-form" method="POST" action="/login">
+            <h2 class="text-center">Register</h2>
+            <form class="login-form" method="POST" action="/register">
             <div class="form-group">
             <label for="exampleInputEmail1" class="text-uppercase">Username</label>
             <input type="text" name="username" class="form-control" placeholder="" />
@@ -35,10 +35,9 @@ export default class LoginPage2 extends React.Component {
             </label>
             <button type="submit" class="btn btn-login float-right">Submit</button>
             </div>
-
             </form>
-            <form action="/register">
-                <button  class="btn btn-login float-left" style={{position: 'absolute', top: "62%"}} className="register-button">Register</button>
+            <form action="/">
+                <button  class="btn btn-login float-left" style={{position: 'absolute', top: "62%"}} className="register-button">Back</button>
             </form>
             </div>
             <div class="col-md-8 banner-sec">

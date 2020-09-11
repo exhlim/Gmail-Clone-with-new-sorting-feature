@@ -36,7 +36,7 @@ let loginPage=(request,response)=> {
         ]
         db.poolRoutes.loginCheckFX(params, (err,results)=> {
             // If username and password does not match with the database
-            if(results.rows.length == 0) {
+            if(results.rows.length == 0 || username.length == 0 || request.body.password == 0) {
                 response.redirect("/");
             } else {
                 response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`))
@@ -50,7 +50,7 @@ let loginPage=(request,response)=> {
         })
     }
     let registerPage=(request,response)=> {
-        response.render("RegisteringPage")
+        response.render("RegisterPage")
     }
     let registerDone=(request,response)=> {
         username = request.body.username
@@ -59,7 +59,7 @@ let loginPage=(request,response)=> {
         ]
         db.poolRoutes.registerCheckFX(params, (err,results)=> {
             // If the username already exists render the same login page
-            if(results.rows.length !== 0) {
+            if(results.rows.length !== 0 || username.length == 0 || request.body.password.length == 0) {
                 response.redirect('/register')
             } else {
                 params.push(sha256(`${request.body.password}`));
@@ -86,25 +86,60 @@ let loginPage=(request,response)=> {
 
 let emailLinkPage=(request,response)=> {
     response.send(`<!DOCTYPE html>
-        <html>
-        <head>
-        <title>Gmail</title>
-        <link rel="icon" href="./public/gmail.svg"/>
-        <meta charset="utf-8" />
-        </head>
-        <body>
-        <p>Please sign in to the email that you want to link: </p>
-        <button id="authorize_button" style="display: none;">Authorize</button>
-        <button id="signout_button" style="display: none;">Stop</button>
-        <pre id="content" style="white-space: pre-wrap;"></pre>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
-        <script type="text/javascript" src="./public/main.js"></script>
-        <script async defer src="https://apis.google.com/js/api.js"
-        onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()">
-        </script>
-        </body>
-        </html>`)
+         <html>
+            <head>
+            <link rel="icon" href="./public/gmail.svg">
+            <title>Gmail</title>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" >
+            <link href="./public/registerPage.css" rel="stylesheet" >
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+            </head>
+            <section class="login-block">
+            <div class="container">
+            <div class="row">
+            <div class="col-md-4 login-sec">
+            <h2 class="text-center">Authentication</h2>
+            <button id="authorize_button" style="display: none; position:relative; left: 36%">Authorize</button>
+            <button id="signout_button" style="display: none; position:relative; left: 36%">Stop</button>
+            </br>
+            <pre id="content" style="white-space: pre-wrap;"></pre>
+            </div>
+            <div class="col-md-8 banner-sec">
+            <div id="carouselExampleIndicators" class="carousel slide" >
+            <img class="d-block img-fluid" src="https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" >
+            <div class="banner-text banner-2" style="width: 97%; right: 4.5%">
+            <h2 style="color:teal">Welcome to my Gmail Clone</h2>
+            <ol>
+                <li style="color:teal">Login or Register with a new account.</li>
+                <li style="color:teal">Link your gmail account and authorize this application.</li>
+                <li style="color:teal">For security and privacy reasons, this application only has a read-only permission and all emails retrieved are not stored in any databases.</li>
+                <li style="color:teal">To remove access click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
+                <li style="color:teal">Avoid pressing the back button and if you encounter and errors, clear your cookies and try again.</li>
+            </ol>
+            <h2 style="color: brown">What is Crux?</h2>
+            <ol>
+                <li style="color: brown">Crux is a feature I created that sorts emails base on Keywords.</li>
+                <li style="color: brown">On the left side bar, define the name for your tab and the keywords to filter out emails.</li>
+                <li style="color: brown">Be specific with your keywords and sperate each keyword with a new line:</li>
+                <ul>
+                    <li style="color: brown">Project Swift</li>
+                    <li style="color: brown">Swift</li>
+                </ul>
+                <li style="color: brown">To change the keywords of a tab, specify the same tab name (Case sensitive) and input your new keywords. Click <a target="_blank" href="https://github.com/exhlim/Gmail-Clone-with-new-sorting-feature">here</a> for more details on this project.</li>
+            </ol>
+            </div>
+            </div>
+            </div>
+            </div>
+            </section>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+            <script type="text/javascript" src="./public/main.js"></script>
+            <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()">
+            </script>
+            </html>`)
 }
 // <----------------------------------------------------------------------------------------------------------> //
 // <-********************************************************************************************************-> //
@@ -186,15 +221,15 @@ let homePage=(request,response)=> {
                         })
                     })
                 } else {
-                 let insertKeywords = [
-                    arrayOfKeywords,
-                    username
-                 ]
-                 db.poolRoutes.insertKeywordFX(insertKeywords, (err, id)=> {
+                   let insertKeywords = [
+                   arrayOfKeywords,
+                   username
+                   ]
+                   db.poolRoutes.insertKeywordFX(insertKeywords, (err, id)=> {
                     let insertTabname = [
-                        request.body.tabName,
-                        username,
-                        id.rows[0].id
+                    request.body.tabName,
+                    username,
+                    id.rows[0].id
                     ]
                     db.poolRoutes.insertTabNameFX(insertTabname, (err,result)=> {
 
@@ -208,13 +243,13 @@ let homePage=(request,response)=> {
                         })
                     })
                 })
-             }
-         })
-     }
-}
+               }
+           })
+        }
+    }
 
 
-     let logout=(request,response)=> {
+    let logout=(request,response)=> {
         username = "";
         sortedEmails = [];
         globalDataVar = [];

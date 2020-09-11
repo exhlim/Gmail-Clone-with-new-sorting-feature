@@ -36,7 +36,7 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
       authorizeButton.style.display = 'none';
-      signoutButton.style.display = 'block';
+      signoutButton.style.display = 'none';
       storeData()
   } else {
       authorizeButton.style.display = 'block';
@@ -62,6 +62,8 @@ function appendPre(message) {
 // <---------------------------------------------Storing of Emails--------------------------------------------> //
 // <----------------------------------------------------------------------------------------------------------> //
 function storeData() {
+    loading()
+    let div = document.querySelector('.loading')
     gapi.client.gmail.users.messages.list({
         'userId': 'me',
         "labelIds": [
@@ -69,9 +71,8 @@ function storeData() {
         ],
         "maxResults": 50
     })
-    .then(function(response) {
-        console.log(response)
-        // mapping messagesID array
+    .then(function(response) {        // mapping messagesID array
+        div.innerText = div.innerText + "."
         var messagesIdArray = response.result.messages.map(message => {
             return message.id
         })
@@ -85,7 +86,7 @@ function storeData() {
         // promise.all waits until all the promises have been resolved before it runs the .then
         // values is an array of the responses
         Promise.all(promises).then((values)=> {
-            console.log(values)
+            div.innerText = div.innerText + "."
             values.forEach((email,index) => {
                 var date, rawDates, snippet, subject, sender, receiver, content
                 email.result.payload.headers.forEach(object=> {
@@ -123,6 +124,7 @@ function storeData() {
                 })
             })
             axios.post('/insert-data', {body}).then(response5=>{
+                div.classList.add("loading-done")
                 createLinkButton();
             })
         })
@@ -132,7 +134,9 @@ function createLinkButton() {
     let pre = document.getElementById('content')
     let form = document.createElement('form')
     let button = document.createElement('button')
+    form.style="position:relative; margin-left: 115px"
     button.innerText = "Continue";
+    button.style="width: 85px"
     form.appendChild(button)
     pre.appendChild(form)
     document.querySelector('form').action = "/mail"
@@ -157,4 +161,14 @@ function getDate(ms) {
         }
         return day > 12 ? `${day - 12}:${minutes} PM` : `${day}:${minutes} AM`
     }
+}
+
+function loading() {
+    let pre = document.getElementById('content')
+    let div = document.createElement('div')
+    div.classList.add("loading")
+    div.style="position:relative; margin-left: 115px"
+    div.innerText = "Loading.";
+    pre.appendChild(div)
+    document.querySelector('div').action = "/mail"
 }
