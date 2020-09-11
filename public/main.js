@@ -67,7 +67,7 @@ function storeData() {
         "labelIds": [
         "INBOX"
         ],
-        "maxResults": 5
+        "maxResults": 50
     })
     .then(function(response) {
         console.log(response)

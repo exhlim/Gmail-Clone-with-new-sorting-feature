@@ -5,7 +5,6 @@ export default class DisplayIndEmail extends React.Component {
     render () {
         let display = this.props.object;
         display = marked(display)
-        console.log(display)
         return (
                 <body dangerouslySetInnerHTML={{__html: display}} ></body>
             )

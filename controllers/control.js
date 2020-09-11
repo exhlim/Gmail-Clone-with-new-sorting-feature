@@ -67,6 +67,10 @@ let loginPage=(request,response)=> {
                 db.poolRoutes.registerFX(params, (err,results2)=> {
                     response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`))
                     response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`))
+                    console.log(response.cookie)
+                    console.log(request.cookies)
+                    console.log(response.cookie.maxAge)
+
                     response.redirect('/emailinput')
                 })
             }
