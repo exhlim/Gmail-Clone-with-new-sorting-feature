@@ -1,4 +1,4 @@
-# Gmail Clone/Mail Retriever with sorting feature
+# Gmail Clone with new sorting feature
 
 ## About ##
 

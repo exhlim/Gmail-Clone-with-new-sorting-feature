@@ -4,9 +4,11 @@
 
 1. What in my process and approach to this project would I do differently next time?
  - Should have started with Gmail API segment first as it was the biggest hurdle. 
+ - Organizing my views folder.
 
 1. What in my process and approach to this project went well that I would repeat next time?
- - 
+ - Pace myself properly throughout the days.
+ - Ask for help if I'm getting stuck for too long. 
 --
 
 #### Code and Code Design
