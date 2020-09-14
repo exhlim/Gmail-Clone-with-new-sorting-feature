@@ -51,8 +51,8 @@ export default class LoginPage2 extends React.Component {
                 <li >Login or Register with a new account.</li>
                 <li >Link your gmail account and authorize this application.</li>
                 <li >For security and privacy reasons, this application only has a read-only permission and all emails retrieved are not stored in any databases.</li>
-                <li >To remove access click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
-                <li>Avoid pressing the back button and if you encounter and errors, clear your cookies and try again.</li>
+                <li >To remove access, click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
+                <li>Avoid pressing the back button (Top left of browser) and if you encounter any errors, clear your cookies and try again.</li>
             </ol>
             <h2 style={{color: 'brown'}}>What is Crux?</h2>
             <ol>

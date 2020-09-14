@@ -166,7 +166,6 @@ function getDate(ms) {
 function loading() {
     let pre = document.getElementById('content')
     let div = document.createElement('div')
-    div.classList.add("loading")
     div.style="position:relative; margin-left: 115px"
     div.innerText = "Loading.";
     pre.appendChild(div)
