@@ -39,18 +39,9 @@ const allFunction = require('./models/functions');
 const poolRoutes = allFunction( pool );
 
 module.exports = {
-  //make queries directly from here
   queryInterface: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
-
-  // get a reference to end the connection pool at server end
   pool:pool,
-
-  /*
-   * ADD APP MODELS HERE
-   */
-
-  // users: userModelsObject,
   poolRoutes
 };
