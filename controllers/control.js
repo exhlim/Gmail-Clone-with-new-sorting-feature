@@ -39,8 +39,8 @@ let loginPage=(request,response)=> {
             if(results.rows.length == 0 || username.length == 0 || request.body.password == 0) {
                 response.redirect("/");
             } else {
-                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`))
-                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`))
+                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
+                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
                 db.poolRoutes.getKeywordDataFX([username], (err,data)=> {
                     globalDataVar = data.rows;
                 })
@@ -65,8 +65,8 @@ let loginPage=(request,response)=> {
                 params.push(sha256(`${request.body.password}`));
                 // If the username does not exists render the email input page.
                 db.poolRoutes.registerFX(params, (err,results2)=> {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`))
-                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`))
+                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
+                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
                     response.redirect('/emailinput')
                 })
             }
@@ -194,7 +194,8 @@ let homePage=(request,response)=> {
         let params = {
             emails: sortedEmails
         }
-        if(request.body.keywords == undefined || request.body.tabName == undefined) {
+        if(request.body.keywords.length < 0 || request.body.tabName.length < 0) {
+            alert("Keywords or Tab name is not defined properly.")
             response.render('MailPage', params)
         } else {
             let arrayOfKeywords = request.body.keywords.split("\r\n")
