@@ -12,7 +12,11 @@ h2  {
 	text-align: center;
 }
 .banner-sec {
+<<<<<<< HEAD
 	background-color: lightgrey;
+=======
+	background:url(https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)  no-repeat left bottom;
+>>>>>>> 1fdbd1b2decdcf5c363040a0be276839c92a938b
 	background-size:cover;
 	min-height:500px;
 	border-radius: 0 10px 10px 0;
