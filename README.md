@@ -49,6 +49,7 @@ What is the Crux of my emails?
 ### CRUX Feature ###
 1. Shows the default urgent tab
 2. Creating a tab name "Sort 1" with the keywords defined as "Google, Project Monster, Monster" to seive out the emails
+
 ![](./public/gif2.gif)
 
 ## Use Cases ##
