@@ -103,7 +103,6 @@ let emailLinkPage=(request,response)=> {
             </div>
             <div class="col-md-8 banner-sec">
             <div id="carouselExampleIndicators" class="carousel slide" >
-            <img class="d-block img-fluid" src="https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" >
             <div class="banner-text banner-2" style="width: 97%; right: 4.5%">
             <h2 style="color:teal">Welcome to my Gmail Clone</h2>
             <ol>
