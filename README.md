@@ -2,11 +2,7 @@
 
 ## About ##
 
-<<<<<<< HEAD
 Hosted [here](https://gmail-clone-crux.herokuapp.com/) on heroku. Register a new account to access the project. (Preview below)
-=======
-Hosted [here](https://gmail-clone-crux.herokuapp.com/) on heroku. Register a new account to access the project.
->>>>>>> 1fdbd1b2decdcf5c363040a0be276839c92a938b
 
 ## Motivation ##
 
