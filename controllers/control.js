@@ -101,7 +101,7 @@ let emailLinkPage=(request,response)=> {
             </br>
             <pre id="content" style="white-space: pre-wrap;"></pre>
             </div>
-            <div class="col-md-8 banner-sec">
+            <div class="col-md-8 banner-sec" style="padding-top: 20px">
             <div id="carouselExampleIndicators" class="carousel slide" >
             <div class="banner-text banner-2" style="width: 97%; right: 4.5%">
             <h2 style="color:teal">Welcome to my Gmail Clone</h2>
@@ -110,7 +110,6 @@ let emailLinkPage=(request,response)=> {
                 <li style="color:teal">Link your gmail account and authorize this application.</li>
                 <li style="color:teal">For security and privacy reasons, this application only has a read-only permission and all emails retrieved are not stored in any databases.</li>
                 <li style="color:teal">To remove access click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
-                <li style="color:teal">Avoid pressing the back button and if you encounter and errors, clear your cookies and try again.</li>
             </ol>
             <h2 style="color: brown">What is Crux?</h2>
             <ol>
