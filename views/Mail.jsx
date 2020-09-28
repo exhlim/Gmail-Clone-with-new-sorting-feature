@@ -4,8 +4,12 @@ import SearchBar from './SearchBar'
 import Sidebar from './SideBar'
 import MailMainComponent from './MailMainComponent'
 import Logout from './Logout';
+import LoginPage from './LoginPage'
 export default class Mail extends React.Component {
     render () {
+        if(!this.props) {
+            return <LoginPage />
+        }
         return (
             <html>
                 <head>

@@ -7,19 +7,76 @@
 		width:100%;
 		padding : 184px 0;
 }
-h2 {text-decoration: underline; text-align: center;}
-.banner-sec{background:url(https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)  no-repeat left bottom; background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
-.container{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1);}
-.carousel-inner{border-radius:0 10px 10px 0;}
-.carousel-caption{left:1%; top: 1%; text-align: justify; width: 90%; color:#006666;}
-.login-sec{padding: 50px 30px; position:relative;}
-.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
-.login-sec .copy-text i{color:#FEB58A;}
-.login-sec .copy-text a{color:#E36262;}
-.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: teal;}
-.btn-login{background: teal; color:#fff; font-weight:600;}
-.banner-text{width:100%; position:absolute; bottom:40px; padding-left:20px;}
-.banner-text h2{color:#fff; font-weight:600;}
-.banner-text p{color:#fff;}
-.banner-2{top: 5%;}
-.loading-done{display: none;}
+h2  {
+	text-decoration: underline;
+	text-align: center;
+}
+.banner-sec {
+	background-color: lightgrey;
+	background-size:cover;
+	min-height:500px;
+	border-radius: 0 10px 10px 0;
+	padding:0;
+}
+.container {
+	background:#fff;
+	border-radius: 10px;
+	box-shadow:15px 20px 0px rgba(0,0,0,0.1);
+}
+.carousel-inner {
+	border-radius:0 10px 10px 0;
+}
+.carousel-caption {
+	left:1%;
+	top: 1%;
+	text-align: justify;
+	width: 90%;
+	color:#006666;
+}
+.login-sec {
+	padding: 50px 30px;
+	position:relative;
+}
+.login-sec .copy-text {
+	position:absolute;
+	width:80%;
+	bottom:20px;
+	font-size:13px;
+	text-align:center;
+}
+.login-sec .copy-text i {
+	color:#FEB58A;
+}
+.login-sec .copy-text a {
+	color:#E36262;
+}
+.login-sec h2 {
+	margin-bottom:30px;
+	font-weight:800;
+	font-size:30px;
+	color: teal;
+}
+.btn-login {
+	background: teal;
+	color:#fff;
+	font-weight:600;
+}
+.banner-text {
+	width:100%;
+	position:absolute;
+	bottom:40px;
+	padding-left:20px;
+}
+.banner-text h2 {
+	color:#fff;
+	font-weight:600;
+}
+.banner-text p {
+	color:#fff;
+}
+.banner-2 {
+	top: 5%;
+}
+.loading-done {
+	display: none;
+}

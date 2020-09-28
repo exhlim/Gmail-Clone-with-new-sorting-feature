@@ -3,13 +3,13 @@ const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-app.use('/public', express.static('public'));
-app.use(express.json({limit: '100mb'}));
+app.use(express.static(__dirname));
+app.use(express.json({limit: '200mb'}));
 app.use(express.urlencoded({
   extended: true,
-  limit: '100mb'
 }));
 
 const reactEngine = require('express-react-views').createEngine();

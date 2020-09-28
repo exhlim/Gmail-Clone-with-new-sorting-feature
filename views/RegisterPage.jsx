@@ -42,7 +42,6 @@ export default class LoginPage2 extends React.Component {
             </div>
             <div class="col-md-8 banner-sec">
             <div id="carouselExampleIndicators" class="carousel slide">
-            <img class="d-block img-fluid" src="https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" />
             <div class="carousel-caption d-none d-md-block">
             <div class="banner-text" />
             <h2>Welcome to my Gmail Clone</h2>
@@ -50,8 +49,7 @@ export default class LoginPage2 extends React.Component {
                 <li >Login or Register with a new account.</li>
                 <li >Link your gmail account and authorize this application.</li>
                 <li >For security and privacy reasons, this application only has a read-only permission and all emails retrieved are not stored in any databases.</li>
-                <li >To remove access click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
-                <li>Avoid pressing the back button and if you encounter and errors, clear your cookies and try again.</li>
+                <li >To remove access, click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
             </ol>
             <h2 style={{color: 'brown'}}>What is Crux?</h2>
             <ol>

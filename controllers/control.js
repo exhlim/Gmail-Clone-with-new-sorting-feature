@@ -39,8 +39,8 @@ let loginPage=(request,response)=> {
             if(results.rows.length == 0 || username.length == 0 || request.body.password == 0) {
                 response.redirect("/");
             } else {
-                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`))
-                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`))
+                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
+                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
                 db.poolRoutes.getKeywordDataFX([username], (err,data)=> {
                     globalDataVar = data.rows;
                 })
@@ -65,12 +65,8 @@ let loginPage=(request,response)=> {
                 params.push(sha256(`${request.body.password}`));
                 // If the username does not exists render the email input page.
                 db.poolRoutes.registerFX(params, (err,results2)=> {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`))
-                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`))
-                    console.log(response.cookie)
-                    console.log(request.cookies)
-                    console.log(response.cookie.maxAge)
-
+                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
+                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
                     response.redirect('/emailinput')
                 })
             }
@@ -105,9 +101,8 @@ let emailLinkPage=(request,response)=> {
             </br>
             <pre id="content" style="white-space: pre-wrap;"></pre>
             </div>
-            <div class="col-md-8 banner-sec">
+            <div class="col-md-8 banner-sec" style="padding-top: 20px">
             <div id="carouselExampleIndicators" class="carousel slide" >
-            <img class="d-block img-fluid" src="https://images.unsplash.com/photo-1476170434383-88b137e598bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" >
             <div class="banner-text banner-2" style="width: 97%; right: 4.5%">
             <h2 style="color:teal">Welcome to my Gmail Clone</h2>
             <ol>
@@ -115,7 +110,6 @@ let emailLinkPage=(request,response)=> {
                 <li style="color:teal">Link your gmail account and authorize this application.</li>
                 <li style="color:teal">For security and privacy reasons, this application only has a read-only permission and all emails retrieved are not stored in any databases.</li>
                 <li style="color:teal">To remove access click <a target="_blank" href="https://myaccount.google.com/security">here</a> and scroll down to "Manage third-party access" and remove "Mail Retriever".</li>
-                <li style="color:teal">Avoid pressing the back button and if you encounter and errors, clear your cookies and try again.</li>
             </ol>
             <h2 style="color: brown">What is Crux?</h2>
             <ol>
@@ -198,14 +192,14 @@ let homePage=(request,response)=> {
         let params = {
             emails: sortedEmails
         }
-        if(request.body.keywords == undefined || request.body.tabName == undefined) {
+        if(request.body.keywords.length < 0 || request.body.tabName.length < 0) {
+            alert("Keywords or Tab name is not defined properly.")
             response.render('MailPage', params)
         } else {
             let arrayOfKeywords = request.body.keywords.split("\r\n")
             arrayOfKeywords = arrayOfKeywords.join('!!!!');
             db.poolRoutes.checkTabNameFX([request.body.tabName, username], (err,results)=> {
                 if(results.rows.length !== 0) {
-                    console.log(username)
                     let object2 = {
                         emails: sortedEmails,
                         keywordData: globalDataVar
