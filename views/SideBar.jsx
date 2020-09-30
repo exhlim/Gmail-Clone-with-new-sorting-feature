@@ -15,7 +15,7 @@ export default class Sidebar extends React.Component {
             count = this.props.object.emails.length
             }
         } else {
-            return ""
+            count = ""
         }
         return (
                 <div className="sidebar">
