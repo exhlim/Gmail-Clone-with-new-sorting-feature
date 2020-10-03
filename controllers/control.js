@@ -1,4 +1,4 @@
-const sha256=require('js-sha256');
+const sha256 = require('js-sha256');
 const cookieParser = require('cookie-parser');
 let SALT = "exhlim";
 let reference = "";
@@ -6,17 +6,17 @@ let sortedEmails;
 let username;
 let globalDataVar;
 module.exports = (db) => {
-// <----------------------------------------------------------------------------------------------------------> //
-// <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
-// <----------------------------------------------------------------------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <----------------------------------------------LOGIN/REGISTER----------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
 
-let loginPage=(request,response)=> {
-    if(!request.cookies['loggedIn']) {
-        response.render('LoginPage')
-    } else {
-        let reference = request.cookies['reference']
-        let cookieValue = request.cookies['loggedIn']
-        if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+    let loginPage = (request, response) => {
+        if (!request.cookies['loggedIn']) {
+            response.render('LoginPage')
+        } else {
+            let reference = request.cookies['reference']
+            let cookieValue = request.cookies['loggedIn']
+            if (cookieValue === sha256(`true${SALT}-${reference}`)) {
                 // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
                 let params = {
                     emails: sortedEmails,
@@ -28,20 +28,20 @@ let loginPage=(request,response)=> {
             }
         }
     }
-    let loginCheck=(request,response)=> {
+    let loginCheck = (request, response) => {
         username = request.body.username
         let params = [
-        request.body.username,
-        sha256(`${request.body.password}`)
+            request.body.username,
+            sha256(`${request.body.password}`)
         ]
-        db.poolRoutes.loginCheckFX(params, (err,results)=> {
+        db.poolRoutes.loginCheckFX(params, (err, results) => {
             // If username and password does not match with the database
-            if(results.rows.length == 0 || username.length == 0 || request.body.password == 0) {
+            if (results.rows.length == 0 || username.length == 0 || request.body.password == 0) {
                 response.redirect("/");
             } else {
-                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
-                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`), { maxAge: 600000 })
-                db.poolRoutes.getKeywordDataFX([username], (err,data)=> {
+                response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results.rows[0].id).toString())}`), { maxAge: 300000 })
+                response.cookie("reference", (`${sha256((results.rows[0].id).toString())}`), { maxAge: 300000 })
+                db.poolRoutes.getKeywordDataFX([username], (err, data) => {
                     globalDataVar = data.rows;
                 })
                 // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
@@ -49,39 +49,39 @@ let loginPage=(request,response)=> {
             }
         })
     }
-    let registerPage=(request,response)=> {
+    let registerPage = (request, response) => {
         response.render("RegisterPage")
     }
-    let registerDone=(request,response)=> {
+    let registerDone = (request, response) => {
         username = request.body.username
         let params = [
-        request.body.username,
+            request.body.username,
         ]
-        db.poolRoutes.registerCheckFX(params, (err,results)=> {
+        db.poolRoutes.registerCheckFX(params, (err, results) => {
             // If the username already exists render the same login page
-            if(results.rows.length !== 0 || username.length == 0 || request.body.password.length == 0) {
+            if (results.rows.length !== 0 || username.length == 0 || request.body.password.length == 0) {
                 response.redirect('/register')
             } else {
                 params.push(sha256(`${request.body.password}`));
                 // If the username does not exists render the email input page.
-                db.poolRoutes.registerFX(params, (err,results2)=> {
-                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
-                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`), { maxAge: 600000 })
+                db.poolRoutes.registerFX(params, (err, results2) => {
+                    response.cookie('loggedIn', sha256(`true${SALT}-${sha256((results2.rows[0].id).toString())}`), { maxAge: 300000 })
+                    response.cookie("reference", (`${sha256((results2.rows[0].id).toString())}`), { maxAge: 300000 })
                     response.redirect('/emailinput')
                 })
             }
         })
     }
-// <----------------------------------------------------------------------------------------------------------> //
-// <-********************************************************************************************************-> //
-// <----------------------------------------------------------------------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <-********************************************************************************************************-> //
+    // <----------------------------------------------------------------------------------------------------------> //
 
-// <----------------------------------------------------------------------------------------------------------> //
-// <------------------------------------------Email Input/ GMAIL API------------------------------------------> //
-// <----------------------------------------------------------------------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <------------------------------------------Email Input/ GMAIL API------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
 
-let emailLinkPage=(request,response)=> {
-    response.send(`<!DOCTYPE html>
+    let emailLinkPage = (request, response) => {
+        response.send(`<!DOCTYPE html>
          <html>
             <head>
             <link rel="icon" href="./public/gmail.svg">
@@ -134,32 +134,32 @@ let emailLinkPage=(request,response)=> {
             onreadystatechange="if (this.readyState === 'complete') this.onload()">
             </script>
             </html>`)
-}
-// <----------------------------------------------------------------------------------------------------------> //
-// <-********************************************************************************************************-> //
-// <----------------------------------------------------------------------------------------------------------> //
-
-// <----------------------------------------------------------------------------------------------------------> //
-// <------------------------------------------------Home Page ------------------------------------------------> //
-// <----------------------------------------------------------------------------------------------------------> //
-let insertData = (request, response) =>{
-    sortedEmails = [...request.body.body]
-    sortedEmails.sort(function(a,b) {
-        return b.rawDate - a.rawDate;
-    });
-    response.send()
-}
-let homePage=(request,response)=> {
-    let params = {
-        emails: sortedEmails,
-        keywordData: globalDataVar
     }
-    if(!request.cookies['loggedIn']) {
-        response.render('LoginPage')
-    } else {
-        let reference = request.cookies['reference']
-        let cookieValue = request.cookies['loggedIn']
-        if(cookieValue === sha256(`true${SALT}-${reference}`)) {
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <-********************************************************************************************************-> //
+    // <----------------------------------------------------------------------------------------------------------> //
+
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <------------------------------------------------Home Page ------------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
+    let insertData = (request, response) => {
+        sortedEmails = [...request.body.body]
+        sortedEmails.sort(function (a, b) {
+            return b.rawDate - a.rawDate;
+        });
+        response.send()
+    }
+    let homePage = (request, response) => {
+        let params = {
+            emails: sortedEmails,
+            keywordData: globalDataVar
+        }
+        if (!request.cookies['loggedIn']) {
+            response.render('LoginPage')
+        } else {
+            let reference = request.cookies['reference']
+            let cookieValue = request.cookies['loggedIn']
+            if (cookieValue === sha256(`true${SALT}-${reference}`)) {
                 // REDIRECT TO HOME PAGE AND RENDER OUT EMIALS FROM SQL
                 let params = {
                     emails: sortedEmails,
@@ -171,41 +171,41 @@ let homePage=(request,response)=> {
             }
         }
     }
-    let getIndividualMail=(request,response)=> {
+    let getIndividualMail = (request, response) => {
         let individualemail = [];
         function filter(emails) {
-            emails.forEach(email=> {
-                if(email.mailid == request.params.id) {
+            emails.forEach(email => {
+                if (email.mailid == request.params.id) {
                     individualemail.push(email)
                 }
             })
         }
         filter(sortedEmails)
         let params = {
-            emails : sortedEmails,
+            emails: sortedEmails,
             keywordData: globalDataVar,
-            indemail : individualemail
+            indemail: individualemail
         }
         response.render('IndMailPage', params)
     }
-    let insertCrux=(request,response)=> {
+    let insertCrux = (request, response) => {
         let params = {
             emails: sortedEmails
         }
-        if(request.body.keywords.length < 0 || request.body.tabName.length < 0) {
+        if (request.body.keywords.length < 0 || request.body.tabName.length < 0) {
             alert("Keywords or Tab name is not defined properly.")
             response.render('MailPage', params)
         } else {
             let arrayOfKeywords = request.body.keywords.split("\r\n")
             arrayOfKeywords = arrayOfKeywords.join('!!!!');
-            db.poolRoutes.checkTabNameFX([request.body.tabName, username], (err,results)=> {
-                if(results.rows.length !== 0) {
+            db.poolRoutes.checkTabNameFX([request.body.tabName, username], (err, results) => {
+                if (results.rows.length !== 0) {
                     let object2 = {
                         emails: sortedEmails,
                         keywordData: globalDataVar
                     }
-                    db.poolRoutes.updateKeywordsFX([arrayOfKeywords,request.body.tabName], (err,results)=> {
-                        db.poolRoutes.getKeywordDataFX([username], (err,data)=> {
+                    db.poolRoutes.updateKeywordsFX([arrayOfKeywords, request.body.tabName], (err, results) => {
+                        db.poolRoutes.getKeywordDataFX([username], (err, data) => {
                             let object2 = {
                                 emails: sortedEmails,
                                 keywordData: data.rows
@@ -215,35 +215,35 @@ let homePage=(request,response)=> {
                         })
                     })
                 } else {
-                   let insertKeywords = [
-                   arrayOfKeywords,
-                   username
-                   ]
-                   db.poolRoutes.insertKeywordFX(insertKeywords, (err, id)=> {
-                    let insertTabname = [
-                    request.body.tabName,
-                    username,
-                    id.rows[0].id
+                    let insertKeywords = [
+                        arrayOfKeywords,
+                        username
                     ]
-                    db.poolRoutes.insertTabNameFX(insertTabname, (err,result)=> {
+                    db.poolRoutes.insertKeywordFX(insertKeywords, (err, id) => {
+                        let insertTabname = [
+                            request.body.tabName,
+                            username,
+                            id.rows[0].id
+                        ]
+                        db.poolRoutes.insertTabNameFX(insertTabname, (err, result) => {
 
-                        db.poolRoutes.getKeywordDataFX([username], (err,data)=> {
-                            let object = {
-                                emails: sortedEmails,
-                                keywordData: data.rows
-                            }
-                            globalDataVar = data.rows;
-                            response.render('MailPage', object)
+                            db.poolRoutes.getKeywordDataFX([username], (err, data) => {
+                                let object = {
+                                    emails: sortedEmails,
+                                    keywordData: data.rows
+                                }
+                                globalDataVar = data.rows;
+                                response.render('MailPage', object)
+                            })
                         })
                     })
-                })
-               }
-           })
+                }
+            })
         }
     }
 
 
-    let logout=(request,response)=> {
+    let logout = (request, response) => {
         username = "";
         sortedEmails = [];
         globalDataVar = [];
@@ -252,27 +252,27 @@ let homePage=(request,response)=> {
         response.cookie("G_AUTHUSER_H", "")
         response.render('LoginPage')
     }
-// <----------------------------------------------------------------------------------------------------------> //
-// <-********************************************************************************************************-> //
-// <----------------------------------------------------------------------------------------------------------> //
+    // <----------------------------------------------------------------------------------------------------------> //
+    // <-********************************************************************************************************-> //
+    // <----------------------------------------------------------------------------------------------------------> //
 
-return {
-    loginPage,
-    loginCheck,
+    return {
+        loginPage,
+        loginCheck,
 
-    registerPage,
-    registerDone,
+        registerPage,
+        registerDone,
 
-    emailLinkPage,
+        emailLinkPage,
 
-    homePage,
-    insertData,
+        homePage,
+        insertData,
 
-    getIndividualMail,
+        getIndividualMail,
 
-    insertCrux,
+        insertCrux,
 
-    logout
+        logout
 
-}
+    }
 }
