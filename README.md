@@ -65,9 +65,8 @@ Users that are working on multiple project with multiple people where emails fro
 
 Emails are rendered after authorization. For security reasons emails that have already been rendered in the past are NOT saved into any database. They are taken from Gmail API then stored in a global variable and rendered directly. Once you click on the log out button on the top right of the mail main page, all values of global variables are set back to being empty.
 
-This feature is not a replacement for existing sorting features such as labels and rules. It is more of an add-on to enhance user experiences.
+This feature is not a replacement for existing sorting features.
 
-If you have any suggestions do let me know!
 
 ## Credits ##
 
