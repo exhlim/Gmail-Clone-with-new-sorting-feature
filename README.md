@@ -67,6 +67,7 @@ Emails are rendered after authorization. For security reasons emails that have a
 
 This feature is not a replacement for existing sorting features.
 
+Key difference between this sorting feature and Gmails sorting feature is that in Gmail, all keywords needs to be present in the email before it is being sorted into its respective tab. Whereas for this sorting feature, so long as any one of the keywords is present, the email will be sorted.
 
 ## Credits ##
 
